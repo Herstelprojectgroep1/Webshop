@@ -10,11 +10,33 @@
   <body>
 
    <?php
-     include_once '../components/headerLogin.php'
+      include_once '../components/headerLogin.php';
+      include '../utils/filter.php';
    ?>
 
    <main>
      <div class="login-box">
+
+       <?php
+       if(isset($_POST['submit'])){
+         $username = $_POST['username'];
+         $email = $_POST['email'];
+         $password = $_POST['password'];
+         $confirm = $_POST['confirm'];
+        
+         if(filterPassword($password)){
+           if ($confirm === $password){
+            
+           }else{
+             echo "Password and Confirm password does not match";
+           } 
+         }else{
+           echo "Password needs to be 8 characters long and has atleast 1 uppercase character, 1 special character and 1 number";
+         }
+       }
+
+       ?>
+
        <h2>Register</h2>
        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
         <label for=username>Username</label><br>
@@ -26,8 +48,11 @@
         <label for=password>Confirm password</label><br>
         <input type="text" name="confirm" id="confirm"><br>
 
-        <input type="submit" name="submit" value="Login">
-        <a href="#">Register</a>
+        <input type="submit" name="submit" value="Register">
+        <a href="login.php">Log in</a>
        </form>
      </div>
    </main>
+
+ </body>
+</html>
