@@ -18,17 +18,23 @@
      <div class="login-box">
 
        <?php
+
        if(isset($_POST['submit'])){
          $username = $_POST['username'];
          $email = $_POST['email'];
-         $password = $_POST['password'];
-         $confirm = $_POST['confirm'];
+         $password1 = $_POST['password1'];
+         $password2 = $_POST['password2'];
         
-         if(filterPassword($password)){
-           if ($confirm === $password){
-            
+         if(checkPassword($password1, $password2)){
+           if (generateHash($password1) && $password1 === $password2){
+             if (strtolower(!filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL))){ //validates the email
+                echo "Email is not valid";
+
+
+
+            }
            }else{
-             echo "Password and Confirm password does not match";
+             echo "Password does not match";
            } 
          }else{
            echo "Password needs to be 8 characters long and has atleast 1 uppercase character, 1 special character and 1 number";
@@ -44,9 +50,9 @@
         <label for=email>Email</label><br>
         <input type="text" name="email" id="email"><br>
         <label for=password>Password</label><br>
-        <input type="text" name="password" id="password"><br>
+        <input type="text" name="password1" id="password1"><br>
         <label for=password>Confirm password</label><br>
-        <input type="text" name="confirm" id="confirm"><br>
+        <input type="text" name="password2" id="password2"><br>
 
         <input type="submit" name="submit" value="Register">
         <a href="login.php">Log in</a>
