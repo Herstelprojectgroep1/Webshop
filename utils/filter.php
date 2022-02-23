@@ -15,10 +15,14 @@ function checkPassword($password){
   }
 
 
-//PASSWORD_BCRYPT is used to create new password hashes
-function generateHash($stringValue) {
-   return password_hash($stringValue, PASSWORD_BCRYPT);
+  //PASSWORD_BCRYPT is used to create new password hashes
+   function generateHash($password1) {
+   $passwordHash =  password_hash($password1, PASSWORD_BCRYPT);
+  //  var_dump($passwordHash);
+   return $passwordHash;
 }  
+
+
 
 
 ?>
