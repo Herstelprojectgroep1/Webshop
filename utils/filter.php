@@ -1,6 +1,6 @@
 <?php
 
-// password has to be 8 characters long, needs atleast 1 uppercase letter, 1 number and atleast 1 special character
+// password has to be 8 characters long, needs at least 1 uppercase letter, 1 number and at least 1 special character
 function checkPassword($password){
     if (strlen($password) >= 8) { 
       if (preg_match('/[A-Z]/', $password)) { 
