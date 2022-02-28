@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 20 feb 2022 om 19:08
+-- Gegenereerd op: 28 feb 2022 om 12:24
 -- Serverversie: 10.4.20-MariaDB
 -- PHP-versie: 8.0.9
 
@@ -73,6 +73,15 @@ CREATE TABLE `role` (
   `name` varchar(50) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `role`
+--
+
+INSERT INTO `role` (`role_ID`, `name`, `description`) VALUES
+(1, 'user', 'This role is meant for normal users (clients) that uses the webshop'),
+(2, 'admin', 'This role is meant for admin users'),
+(3, 'orderpicker', 'This role is meant for orderpickers');
 
 -- --------------------------------------------------------
 
@@ -155,7 +164,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT voor een tabel `role`
 --
 ALTER TABLE `role`
-  MODIFY `role_ID` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `role_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT voor een tabel `user`

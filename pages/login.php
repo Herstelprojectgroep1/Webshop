@@ -10,7 +10,8 @@
   <body>
 
    <?php
-     include_once '../components/headerLogin.php'
+     require_once '../components/headerLogin.php';
+     require_once '../controllers/db/dbconnect.php';
    ?>
 
    <main>
