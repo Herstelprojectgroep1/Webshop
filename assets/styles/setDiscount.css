@@ -9,7 +9,7 @@ main{
     width:100%;
 }
 
-.add-product{
+.set-discount{
     border:1px solid black;
     border-radius: 10px;
     width:20%;
@@ -23,6 +23,11 @@ form{
     font-size:14px;
 }
 
+label{
+    display: block;
+    margin-bottom: 12px;
+}
+
 input[type=text]{
     margin-bottom:12px;
     width:95%;
@@ -33,14 +38,4 @@ input[type=submit]{
     padding: 6px 30px 6px 30px;
     background-color:#2196F3;
     color:white;
-}
-
-form select{
-    margin-bottom: 12px;
-    width: 95%;
-}
-
-input[type=file]{
-    margin-bottom: 12px;
-    width: 95%;
 }

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/styles/admin.css">
-    <title>Admin panel</title>
+    <title>Add product</title>
 </head>
 
 <body>
@@ -17,8 +17,8 @@ include_once '../controllers/db/dbconnect.php';
 $connect = GetConnection();
 
 if (isset($_POST["submit"])) {
-    $pnaam = $_POST["pnaam"];
-    $ptekst = $_POST["ptekst"];
+    $pname = $_POST["pname"];
+    $ptext = $_POST["ptext"];
     $ptype = $_POST["ptype"];
     $price = $_POST["price"];
     $prijs = filter_var($price, FILTER_SANITIZE_NUMBER_INT);
@@ -42,7 +42,7 @@ if (isset($_POST["submit"])) {
             if ($error > 0) {
                 echo "An error has occurred during upload.";
             } else {
-                $dir = "../images/" . $pnaam;
+                $dir = "../images/" . $pname;
                 if (is_dir($dir) === false) {
                     mkdir($dir);
                 }
@@ -61,10 +61,10 @@ if (isset($_POST["submit"])) {
         }
     }
 
-    if (empty($pnaam) || empty($ptekst) || empty($ptype) || empty($price)) {
+    if (empty($pname) || empty($ptext) || empty($ptype) || empty($price)) {
         echo "Please fill in all fields.";
     } else {
-        $query = "INSERT INTO product (name, description, price, catagory) VALUES
+        $query = "INSERT INTO product (name, description, price, category) VALUES
             (
                 ?,
                 ?,
@@ -72,7 +72,7 @@ if (isset($_POST["submit"])) {
                 ?                                             
             )";
         if ($stm = mysqli_prepare($connect, $query)) {
-            mysqli_stmt_bind_param($stm, 'ssis', $pnaam, $ptekst, $prijs, $ptype);
+            mysqli_stmt_bind_param($stm, 'ssis', $pname, $ptext, $price, $ptype);
             if (mysqli_stmt_execute($stm)) {
                 mysqli_stmt_close($stm);
                 mysqli_close($connect);
@@ -91,22 +91,46 @@ if (isset($_POST["submit"])) {
     <div class="add-product">
         <h2>Add product</h2>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" enctype="multipart/form-data">
-            <label for="pnaam">Productnaam:</label><br>
-            <input type="text" name="pnaam" id="pnaam"><br>
-            <label for="ptekst">Productomschrijving:</label><br>
-            <input type="text" name="ptekst" id="ptekst"><br>
-            <label for="ptype">Categorie</label><br>
-            <select name="ptype" id="ptype">
-                <option value=""></option>
-                <option value="L">Large</option>
-                <option value="M">Medium</option>
-                <option value="S">Small</option>
-            </select><br>
-            <label for="price">Prijs in centen</label><br>
-            <input type="text" name="price" id="price"><br>
-            <label for="img">Afbeelding(en)</label><br>
-            <input type="file" name="img[]" id="img" multiple><br>
-            <input type="submit" name="submit" id="submit" value="submit">
+
+            <div>
+                <label>
+                    Name:
+                    <input type="text" name="pname" id="pname">
+                </label>
+            </div>
+            <div>
+                <label>
+                    Description:
+                    <input type="text" name="ptext" id="ptext">
+                </label>
+            </div>
+            <div>
+                <label>
+                    Catergory:
+                    <select name="ptype" id="ptype">
+                        <option value=""></option>
+                        <option value="L">Large</option>
+                        <option value="M">Medium</option>
+                        <option value="S">Small</option>
+                        <option value="T">Tiny</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label>
+                    Price (cents):
+                    <input type="text" name="price" id="price">
+                </label>
+            </div>
+            <div>
+                <label>
+                    Images (Minimal one image)
+                    <input type="file" name="img[]" id="img" multiple>
+                </label>
+            </div>
+            <div>
+                <input type="submit" name="submit" id="submit" value="submit">
+            </div>
         </form>
     </div>
 </main>
