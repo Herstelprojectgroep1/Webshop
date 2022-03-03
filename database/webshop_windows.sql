@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 28 feb 2022 om 12:24
+-- Gegenereerd op: 03 mrt 2022 om 15:48
 -- Serverversie: 10.4.20-MariaDB
 -- PHP-versie: 8.0.9
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `webshop`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `discount`
+--
+
+CREATE TABLE `discount` (
+  `discountID` int(10) NOT NULL,
+  `productID` int(10) NOT NULL,
+  `discount` int(11) NOT NULL,
+  `newPrice` int(11) NOT NULL,
+  `beginDate` date NOT NULL,
+  `endDate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -56,10 +71,11 @@ CREATE TABLE `order_item` (
 --
 
 CREATE TABLE `product` (
-  `ID` int(10) NOT NULL,
+  `productID` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` text NOT NULL,
-  `price` decimal(10,2) NOT NULL
+  `price` decimal(10,2) NOT NULL,
+  `category` varchar(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -94,14 +110,27 @@ CREATE TABLE `user` (
   `role_ID` int(10) NOT NULL,
   `username` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `date_of_birth` date NOT NULL,
   `logged_in` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Gegevens worden geëxporteerd voor tabel `user`
+--
+
+INSERT INTO `user` (`ID`, `role_ID`, `username`, `email`, `password`, `date_of_birth`, `logged_in`) VALUES
+(1, 1, 'Monique_sabong', 'moniquesbg@gmail.com', '$2y$10$aw8k5.lxt4EjlTzAVqOTKej4DxYy.XB4mgSOE7lDABJOZnnrqfn2C', '2002-10-22', 0);
+
+--
 -- Indexen voor geëxporteerde tabellen
 --
+
+--
+-- Indexen voor tabel `discount`
+--
+ALTER TABLE `discount`
+  ADD PRIMARY KEY (`discountID`);
 
 --
 -- Indexen voor tabel `order`
@@ -123,7 +152,7 @@ ALTER TABLE `order_item`
 -- Indexen voor tabel `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`productID`);
 
 --
 -- Indexen voor tabel `role`
@@ -143,6 +172,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT voor een tabel `discount`
+--
+ALTER TABLE `discount`
+  MODIFY `discountID` int(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT voor een tabel `order`
 --
 ALTER TABLE `order`
@@ -158,7 +193,7 @@ ALTER TABLE `order_item`
 -- AUTO_INCREMENT voor een tabel `product`
 --
 ALTER TABLE `product`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `productID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT voor een tabel `role`
@@ -170,7 +205,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
@@ -188,7 +223,7 @@ ALTER TABLE `order`
 --
 ALTER TABLE `order_item`
   ADD CONSTRAINT `order_ID` FOREIGN KEY (`order_ID`) REFERENCES `order` (`ID`),
-  ADD CONSTRAINT `product_ID` FOREIGN KEY (`product_ID`) REFERENCES `product` (`ID`);
+  ADD CONSTRAINT `product_ID` FOREIGN KEY (`product_ID`) REFERENCES `product` (`productID`);
 
 --
 -- Beperkingen voor tabel `user`

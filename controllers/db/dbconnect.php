@@ -1,16 +1,4 @@
 <?php
-// //Require ENV
-// require_once('env.php');
-
-// // Connect to server
-// $conn = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE);
-
-// // Test the connection
-// if (!$conn) {
-//     exit ("Could not connect to the database");
-// } ?>
-
-<?php
 require_once "credentials.php";
 
 //database connection
@@ -48,10 +36,6 @@ function getData($sql , $dataTypes, $values){
     $row = mysqli_fetch_assoc($result);
     mysqli_stmt_close($stmt);
     mysqli_close($db);
-
-    if (empty($row)){
-        return "Unable to get data!"; 
-    }
+    return $row;
 }
-
 ?>
