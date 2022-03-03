@@ -1,5 +1,6 @@
 <?php
 
+
 function GetConnection() {
     $connect = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE)
     or die(mysqli_connect_error());
@@ -8,9 +9,6 @@ function GetConnection() {
     }
     return $connect;
 }
-
-
-=======
 
 require_once "credentials.php";
 
@@ -49,11 +47,6 @@ function getData($sql , $dataTypes, $values){
     $row = mysqli_fetch_assoc($result);
     mysqli_stmt_close($stmt);
     mysqli_close($db);
-
-    if (empty($row)){
-        return "Unable to get data!"; 
-    }
+    return $row;
 }
-
 ?>
-
