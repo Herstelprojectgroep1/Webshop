@@ -12,13 +12,31 @@ include_once "../controllers/db/dbconnect.php";
 include "../utils/filter.php";
 $conn = GetConnection();
 
+
+if (isset($_GET["error"])){
+    $error = $_GET["error"];
+    if ($error == "invalidDiscount"){
+        echo "Please use an integer for the discount. Please try again.";
+    }
+    if ($error == "invalidPeriod"){
+        echo "Invalid discount period. Please try again.";
+    }
+}
 if (isset($_POST["submit"]) && isset($_POST['product-id']) && isset($_POST['product-price']) && isset($_POST['discount']) && isset($_POST['beginDate']) && isset($_POST['endDate'])) {
     $pID = $_POST["product-id"];
     $price = $_POST['product-price'];
     $korting = $_POST["discount"];
     $beginDate = $_POST["beginDate"];
     $endDate = $_POST["endDate"];
-    $discount = filter_var($korting, FILTER_SANITIZE_NUMBER_INT);
+    $discount = filter_var($korting, FILTER_VALIDATE_INT);
+    if (!$discount){
+        header("Location: setDiscount.php?error=invalidDiscount");
+        return;
+    }
+    if ($beginDate > $endDate){
+        header("Location: setDiscount.php?error=invalidPeriod");
+        return;
+    }
 
     $sql = "INSERT INTO discount (productID, discount, newPrice, beginDate, endDate) VALUES
     (
@@ -74,12 +92,7 @@ if (isset($_POST["submit"]) && isset($_POST['product-id']) && isset($_POST['prod
 
 
             <?php
-            error_reporting(E_ALL);
-            ini_set("display_errors", 1);
-            ini_set("display_startup_errors", 1);
-
             $showProduct = false;
-
             if (isset($_POST['ptype'])) {
                 $ptype = filter_input(INPUT_POST, 'ptype');
                 $query = "SELECT `name`, `productID`, `price` FROM `product` WHERE `category` = ?";
@@ -115,8 +128,8 @@ if (isset($_POST["submit"]) && isset($_POST['product-id']) && isset($_POST['prod
                 ?>
                 <div>
                     <label>
-                        Discount:
-                        <input type="text" id="discount" name="discount">
+                        Discount (percentage):
+                        <input type="number" step="1" min="0" max="100" id="discount" name="discount">
                     </label>
                 </div>
                 <div>

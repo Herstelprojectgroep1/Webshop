@@ -21,7 +21,7 @@ if (isset($_POST["submit"])) {
     $ptext = $_POST["ptext"];
     $ptype = $_POST["ptype"];
     $price = $_POST["price"];
-    $prijs = filter_var($price, FILTER_SANITIZE_NUMBER_INT);
+    $prijs = filter_var($price, FILTER_VALIDATE_INT);
 
     $imgArray = $_FILES["img"];
     $numberOfImg = count($imgArray["name"]);
@@ -119,7 +119,7 @@ if (isset($_POST["submit"])) {
             <div>
                 <label>
                     Price (cents):
-                    <input type="text" name="price" id="price">
+                    <input type="number" min="0" step="1" name="price" id="price">
                 </label>
             </div>
             <div>

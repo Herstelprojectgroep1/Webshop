@@ -28,8 +28,9 @@ label{
     margin-bottom: 12px;
 }
 
-input[type=text]{
-    margin-bottom:12px;
+input[type=number]{
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
     width:95%;
 }
 
