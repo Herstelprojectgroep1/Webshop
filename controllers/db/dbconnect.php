@@ -1,4 +1,15 @@
 <?php
+
+
+function GetConnection() {
+    $connect = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE)
+    or die(mysqli_connect_error());
+    if (!$connect) {
+        die('no database with that name');
+    }
+    return $connect;
+}
+
 require_once "credentials.php";
 
 //database connection

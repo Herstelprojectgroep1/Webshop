@@ -1,0 +1,46 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+main{
+    width:100%;
+}
+
+.add-product{
+    border:1px solid black;
+    border-radius: 10px;
+    width:20%;
+    margin-left:39%;
+    margin-top:8%;
+    padding:10px 10px 10px 10px;
+}
+
+form{
+    margin-top:10px;
+    font-size:14px;
+}
+
+input[type=text]{
+    margin-bottom:12px;
+    width:95%;
+}
+
+input[type=submit]{
+    border:none;
+    padding: 6px 30px 6px 30px;
+    background-color:#2196F3;
+    color:white;
+}
+
+form select{
+    margin-bottom: 12px;
+    width: 95%;
+}
+
+input[type=file]{
+    margin-bottom: 12px;
+    width: 95%;
+}

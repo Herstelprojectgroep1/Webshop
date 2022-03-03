@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<hmtl lang="en">
+<html lang="en">
   <head>
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,6 +20,16 @@
 
        <?php
        if(isset($_POST['submit'])){
+
+
+
+            }
+           }else{
+             echo "Password does not match";
+           } 
+         }else{
+           echo "Password needs to be 8 characters long and has at least 1 uppercase character, 1 special character and 1 number";
+         }
 
          $input['username'] = filterInput($_POST['username'], 'username');
          $input['email'] = $_POST['email'];
@@ -51,6 +61,7 @@
           }else{
                echo "ERROR: password needs to be 8 characters long and has atleast 1 uppercase character, 1 special character and 1 number";
           }
+
        }
        ?>
 
