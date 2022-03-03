@@ -21,16 +21,6 @@
        <?php
        if(isset($_POST['submit'])){
 
-
-
-            }
-           }else{
-             echo "Password does not match";
-           } 
-         }else{
-           echo "Password needs to be 8 characters long and has at least 1 uppercase character, 1 special character and 1 number";
-         }
-
          $input['username'] = filterInput($_POST['username'], 'username');
          $input['email'] = $_POST['email'];
          $input['dob'] = date('Y-m-d', strtotime($_POST['birth']));
@@ -61,8 +51,8 @@
           }else{
                echo "ERROR: password needs to be 8 characters long and has atleast 1 uppercase character, 1 special character and 1 number";
           }
-
        }
+
        ?>
 
        <h2>Register</h2>

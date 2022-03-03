@@ -32,43 +32,32 @@
              $input['password'] = filterInput($_POST['password'], 'password');
              if (checkPassword($input['password'])){
                if (!in_array(false, $input)){
-                $data = getData(
+                    $data = getData(
                     "SELECT * FROM user WHERE username = ?",
                     "s",
                     array($input["username"])
                 );
-                  if (array_key_exists("username", $data) && array_key_exists("password", $data)){
-
-                    if(password_verify($input['password'], $data['password']) && $input['username'] === $data['username']){
+                 if (array_key_exists("username", $data) && array_key_exists("password", $data)){
+                   if(password_verify($input['password'], $data['password']) && $input['username'] === $data['username']){
                        echo "login succes";
-                  } else{
-
-                    echo "ERROR: Incorrect password";
-                  }
-                }
-                
-                else{
+                    }else{
+                       echo "ERROR: Incorrect password";
+                    }
+                    }else{
+                       echo "ERROR: username and password does not exist";
+                  }else{
                   echo "ERROR: Can't fetch data";
                 }
-              }else{
-                 echo "ERROR: incorrect password or username";
-              }
-            }else{
-              echo "ERROR: password needs to be 8 characters long and has atleast 1 uppercase character, 1 special character and 1 number";
+          //   }else{
+          //     echo "ERROR: password needs to be 8 characters long and has atleast 1 uppercase character, 1 special character and 1 number";
+          //  }
+           }else {
+           echo "ERROR: please fill in both fields";
            }
-          }else{
-             echo "ERROR: Please enter your username and password to login.";
-          }
+        }else{
+            echo "ERROR: Please enter your username and password to login.";
         }
-       
-
-                       //  $db = dbConnect(HOSTNAME, USERNAME, PASSWORD , DATABASE);
-                //  $sql = "SELECT * FROM user WHERE username = ?";
-                //  $stmt = mysqli_stmt_prepare($db, $sql);
-                //  mysqli_stmt_bind_psaram("issssi", $stmt, $sql);
-                //  mysqli_stmt_execute($stmt);
-                //  $result = mysqli_stmt_get_result($stmt);
-                //  $row = mysqli_fetch_assoc($result);
+        
      ?>
 
        <h2>Login</h2>
