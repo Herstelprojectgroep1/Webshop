@@ -27,6 +27,11 @@ input[type=text]{
     width:95%;
 }
 
+input[type=password]{
+    margin-bottom:12px;
+    width:95%;
+}
+
 input[type=submit]{
     border:none;
     padding: 6px 30px 6px 30px;
@@ -45,4 +50,8 @@ a:link{
 
 a:visited{
     color:black;
+}
+
+label, input{
+    display:block;
 }

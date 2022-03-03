@@ -6,22 +6,32 @@ function checkPassword($password){
       if (preg_match('/[A-Z]/', $password)) { 
         if (preg_match('/[0-9]/', $password)) { 
           if (preg_match('/[^a-zA-Z\d]/', $password)) { 
-            return true;
+            return $password;
           }
         }
       }
     }
-    return false;
+    return "not valid password";
   }
 
-
-  //PASSWORD_BCRYPT is used to create new password hashes
-   function generateHash($password1) {
-   $passwordHash =  password_hash($password1, PASSWORD_BCRYPT);
+//PASSWORD_BCRYPT is used to create new password hashes
+function createHash($password) {
+  $passwordHash =  password_hash($password, PASSWORD_BCRYPT);
   //  var_dump($passwordHash);
-   return $passwordHash;
+  return $passwordHash;
 }  
 
+function filterInput($postVariable, $parameterName){
+  $filteredValue = !empty($postVariable) ? FILTER_INPUT(INPUT_POST, $parameterName, FILTER_SANITIZE_SPECIAL_CHARS) : false;
+  return $filteredValue;
+}
+
+function verifyPassword($password, $passwordHash){
+   if (password_verify($password, $passwordHash)){
+     return true;
+   }
+   return false;
+}
 
 
 
