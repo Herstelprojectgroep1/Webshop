@@ -55,8 +55,6 @@ VALUES (?,
     } else {
         die(mysqli_error($conn));
     }
-} else {
-    echo "Please ensure the whole form has been filled in before submitting it.";
 }
 ?>
 <main>
