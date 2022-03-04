@@ -12,7 +12,7 @@
    <header>
      <div class="container">
        <div class="logo">  
-          NHL WEBSHOP
+          <a href="../pages/productOverzicht.php">NHL WEBSHOP</a>
        </div>  
       
        <div class="search-bar">
