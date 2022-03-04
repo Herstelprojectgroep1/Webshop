@@ -8,7 +8,7 @@
 <body>
     <?php
     include_once "../components/headerLogin.php";
-    //include "../utils/filter.php";
+    include "../utils/filter.php";
     include_once "../controllers/db/dbconnect.php";
     ?>
     <ul>
