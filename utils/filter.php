@@ -36,16 +36,6 @@ function logOut(){
 
   session_destroy();
 
-  header("Location: #");
+  header("Location: ../pages/index.php");
 }
-
-function checkAge(){
-  $currentDate = date('m-d-Y h:i:s a', time()); 
-  if ($_SESSION['date_of_birth'] < $currentDate){
-    FALSE
-  }else{
-    TRUE
-  }
-}
-
 ?>

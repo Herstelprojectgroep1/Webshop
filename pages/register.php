@@ -37,7 +37,7 @@
                              "issssi",
                               array(1, $input['username'], $input['email'], createHash($input['password']), $input['dob'], 0)
                              )) {
-                               echo "registration succes";
+                              header("location:../pages/index.php");
                              }
                        }else{
                            echo "ERROR: please check if all fields were filled in";
@@ -68,7 +68,7 @@
         <input type="password" name="password_confirm" id="password_confirm">
 
         <input type="submit" name="submit" value="Register">
-        <a href="login.php">Log in</a>
+        <a href="index.php">Log in</a>
        </form>
      </div>
    </main>

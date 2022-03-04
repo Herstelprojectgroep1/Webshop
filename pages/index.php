@@ -27,8 +27,6 @@
                 exit();
             }
 
-            checkAge($_SESSION['username']);
-
             if (isset($_POST['submit'])) {
                 if (!empty($_POST['username']) && $_POST['password']) {
                     $input['username'] = filterInput($_POST['username'], 'username');
@@ -55,7 +53,7 @@
                                         $_SESSION['date_of_birth'] = $data['date_of_birth'];
                                         $_SESSION['logged_in'] = $data['logged_in'];
 
-                                        echo "login succes";  
+                                        header("location:../pages/productOverzicht.php");  
                                 } else {
                                     echo "ERROR: Incorrect password";
                                 }
@@ -80,7 +78,7 @@
                 <label for=username>Username</label>
                 <input type="text" name="username" id="username">
                 <label for=password>Password</label>
-                <input type="text" name="password" id="password">
+                <input type="password" name="password" id="password">
 
                 <input type="submit" name="submit" value="Login">
                 <a href="register.php">Register</a>
