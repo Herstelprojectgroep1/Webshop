@@ -13,44 +13,40 @@ include "../utils/filter.php";
 $conn = GetConnection();
 
 
-if (isset($_GET["error"])){
+if (isset($_GET["error"])) {
     $error = $_GET["error"];
-    if ($error == "invalidDiscount"){
-        echo "Please use an integer for the discount. Please try again.";
+    if ($error == "invalidDiscount") {
+        echo "Please use an integer for the discount. Please try again. <br>";
     }
-    if ($error == "invalidPeriod"){
-        echo "Invalid discount period. Please try again.";
+    if ($error == "invalidPeriod") {
+        echo "Invalid discount period. Please try again. <br>";
     }
 }
-if (isset($_POST["submit"]) && isset($_POST['product-id']) && isset($_POST['product-price']) && isset($_POST['discount']) && isset($_POST['beginDate']) && isset($_POST['endDate'])) {
+if (isset($_POST["submit"]) && isset($_POST['product-id']) && isset($_POST['discount']) && isset($_POST['beginDate']) && isset($_POST['endDate'])) {
     $pID = $_POST["product-id"];
-    $price = $_POST['product-price'];
     $korting = $_POST["discount"];
     $beginDate = $_POST["beginDate"];
     $endDate = $_POST["endDate"];
     $discount = filter_var($korting, FILTER_VALIDATE_INT);
-    if (!$discount){
+    if (!$discount) {
         header("Location: setDiscount.php?error=invalidDiscount");
         return;
     }
-    if ($beginDate > $endDate){
+    if ($beginDate > $endDate) {
         header("Location: setDiscount.php?error=invalidPeriod");
         return;
     }
 
-    $sql = "INSERT INTO discount (productID, discount, newPrice, beginDate, endDate) VALUES
-    (
-        ?,
-        ?,
-        ?,
-        ?,
-        ?
-    )";
-    if ($statement = mysqli_prepare($conn, $sql)) {
+    $sqli = "INSERT INTO `discount` (`productID`, `discount`, `newPrice`, `beginDate`, `endDate`) 
+VALUES (?, 
+        ?, 
+        (SELECT price/100*(100-?) FROM product WHERE productID=?), 
+        ?, 
+        ?)";
+    if ($statement = mysqli_prepare($conn, $sqli)) {
         for ($i = 0; $i < count($pID); $i++) {
-            $price[$i] = $price[$i] / 100 * (100 - $discount);
-            mysqli_stmt_bind_param($statement, 'isiss', $pID[$i], $discount, $price[$i], $beginDate, $endDate);
-            mysqli_stmt_execute($statement) OR DIE("EXECUTE ERROR");
+            mysqli_stmt_bind_param($statement, 'iiiiss', $pID[$i], $discount, $discount, $pID[$i], $beginDate, $endDate);
+            mysqli_stmt_execute($statement) or die("EXECUTE ERROR");
             if (count($pID) == $i) {
                 mysqli_stmt_close($statement);
                 mysqli_close($conn);
@@ -59,6 +55,8 @@ if (isset($_POST["submit"]) && isset($_POST['product-id']) && isset($_POST['prod
     } else {
         die(mysqli_error($conn));
     }
+} else {
+    echo "Please ensure the whole form has been filled in before submitting it.";
 }
 ?>
 <main>
@@ -67,25 +65,29 @@ if (isset($_POST["submit"]) && isset($_POST['product-id']) && isset($_POST['prod
             <h2>Category</h2>
             <div>
                 <label>
-                    <input type="radio" id="L" name="ptype" value="L" <?php echo isset($_POST['ptype']) && $_POST['ptype'] == "L" ? "checked" : '' ?>>
+                    <input type="radio" id="L" name="ptype"
+                           value="L" <?php echo isset($_POST['ptype']) && $_POST['ptype'] == "L" ? "checked" : '' ?>>
                     Large
                 </label>
             </div>
             <div>
                 <label>
-                    <input type="radio" id="M" name="ptype" value="M" <?php echo isset($_POST['ptype']) && $_POST['ptype'] == "M" ? "checked" : '' ?>>
+                    <input type="radio" id="M" name="ptype"
+                           value="M" <?php echo isset($_POST['ptype']) && $_POST['ptype'] == "M" ? "checked" : '' ?>>
                     Medium
                 </label>
             </div>
             <div>
                 <label>
-                    <input type="radio" id="S" name="ptype" value="S" <?php echo isset($_POST['ptype']) && $_POST['ptype'] == "S" ? "checked" : '' ?>>
+                    <input type="radio" id="S" name="ptype"
+                           value="S" <?php echo isset($_POST['ptype']) && $_POST['ptype'] == "S" ? "checked" : '' ?>>
                     Small
                 </label>
             </div>
             <div>
                 <label>
-                    <input type="radio" id="T" name="ptype" value="T" <?php echo isset($_POST['ptype']) && $_POST['ptype'] == "T" ? "checked" : '' ?>>
+                    <input type="radio" id="T" name="ptype"
+                           value="T" <?php echo isset($_POST['ptype']) && $_POST['ptype'] == "T" ? "checked" : '' ?>>
                     Tiny
                 </label>
             </div>
@@ -106,9 +108,6 @@ if (isset($_POST["submit"]) && isset($_POST['product-id']) && isset($_POST['prod
                                 <label>
                                     <input type='checkbox' id='" . $pname . "' name='product-id[]' value='" . $pID . "'>
                                     " . $pname . "
-                                </label>
-                                 <label>
-                                    <input type='hidden' id='" . $price . "' name='product-price[]' value='" . $price . "'>
                                 </label>
                                 </div>";
                         }
