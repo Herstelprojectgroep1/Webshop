@@ -21,6 +21,9 @@ SET time_zone = "+00:00";
 -- Database: `webshop`
 --
 
+CREATE DATABASE IF NOT EXISTS `webshop` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `webshop`;
+
 -- --------------------------------------------------------
 
 --
