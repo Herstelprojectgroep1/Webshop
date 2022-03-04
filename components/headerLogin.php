@@ -18,6 +18,11 @@
        <div class="search-bar">
           <input type="search" name="zoekbalk" placeholder="Zoeken">
         </div>
+         <ul>
+             <li><a href="../pages/admin.php">Add product</a> </li>
+             <li><a href="../pages/setDiscount.php">Set discount</a> </li>
+             <li><a href="../pages/index.php">Login</a> </li>
+         </ul>
      </div>   
    </header>
 

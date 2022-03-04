@@ -13,9 +13,9 @@ main{
 }
 
 ul {
-    display: inline-block;
     list-style-type: none;
     margin: 0 auto;
+    justify-content: center;
 }
 
 li {

@@ -5,7 +5,6 @@
 }
 
 header{
-    display:flex;
     font-family: Arial, Helvetica, sans-serif;
     width:100%;
     background-color:#2196F3;
@@ -14,36 +13,44 @@ header{
 
 .container{
     display:flex;
-    justify-content: space-between;
-    width:60%;
-    margin-left:20%;
+    justify-content: center;
 }
 
 .logo{
     color:white;
-    margin-top:0.5%;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    padding: 16px;
 }
 
 input[type=search]{
     border:none;
     padding: 7px 4px 7px 4px;
     width: 250px;
-} 
-
-ul{
-    display:flex;
-    justify-content: space-between;
-    width:300px;
 }
 
-li, a{
+ul{
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+li {
+    display: flex;
+    align-items: center;
+}
+
+li a{
     text-decoration: none;
     list-style: none;
     text-align:center;
-    margin-top:1%;
-    color:white;
-}
-
-a:hover{
-    color:blueviolet;
+    padding: 16px;
+    color: darkblue;
 }
