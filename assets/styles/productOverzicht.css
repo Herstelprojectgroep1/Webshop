@@ -6,16 +6,39 @@
 }
 
 main{
-    width:100%;
+    width:80%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+ul {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0 auto;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+    border-radius: 15px;
 }
 
 .product {
     display: block;
-    width: 300px;
-    height: 300px;
+    height: 150px;
+    margin: 24px;
+    color: black;
+    text-decoration: none;
 }
 
 img {
-    max-height: 250px;
-    max-width: 250px;
+    max-height: 100px;
 }
