@@ -1,5 +1,5 @@
 <?php
-
+require_once "credentials.php";
 
 function GetConnection() {
     $connect = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE)
@@ -10,25 +10,13 @@ function GetConnection() {
     return $connect;
 }
 
-require_once "credentials.php";
-
-//database connection
-function dbConnect($server, $username, $password, $database){
-    // check if the connection exists
-    $conn = mysqli_connect(HOSTNAME, USERNAME, PASSWORD , DATABASE);
-    if (!$conn) {
-    exit("Could not connect to the database!");
-    }
-    return $conn;
-}
-
 /* 
 executeQuery():
 execute a insert, delete or update query.
 */
 
 function executeQuery($sql, $dataTypes, $values){
-    $db = dbConnect(HOSTNAME, USERNAME, PASSWORD , DATABASE);
+    $db = GetConnection(HOSTNAME, USERNAME, PASSWORD , DATABASE);
     $stmt = mysqli_prepare($db, $sql) or die (mysqli_stmt_error($stmt));
     mysqli_stmt_bind_param($stmt, $dataTypes, ...$values) or die(mysqli_stmt_error($stmt));
     $results = mysqli_stmt_execute($stmt);
@@ -38,7 +26,7 @@ function executeQuery($sql, $dataTypes, $values){
 }
 
 function getData($sql , $dataTypes, $values){
-    $db = dbConnect(HOSTNAME, USERNAME, PASSWORD , DATABASE);
+    $db = GetConnection(HOSTNAME, USERNAME, PASSWORD , DATABASE);
     $stmt = mysqli_prepare($db, $sql) or die (mysqli_stmt_error($stmt));
     mysqli_stmt_bind_param($stmt, $dataTypes, ...$values) or die (mysqli_stmt_error($stmt));
     mysqli_stmt_execute($stmt);

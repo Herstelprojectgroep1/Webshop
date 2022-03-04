@@ -39,6 +39,11 @@ input[type=submit]{
     color:white;
 }
 
+input{
+    margin-bottom:12px;
+    width:95%;
+}
+
 a{
    margin-left:10px;
    text-decoration: none;

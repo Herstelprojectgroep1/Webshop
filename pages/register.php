@@ -52,7 +52,6 @@
                echo "ERROR: password needs to be 8 characters long and has atleast 1 uppercase character, 1 special character and 1 number";
           }
        }
-
        ?>
 
        <h2>Register</h2>

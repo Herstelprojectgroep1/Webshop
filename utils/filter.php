@@ -25,4 +25,27 @@ function filterInput($postVariable, $parameterName){
   $filteredValue = !empty($postVariable) ? FILTER_INPUT(INPUT_POST, $parameterName, FILTER_SANITIZE_SPECIAL_CHARS) : false;
   return $filteredValue;
 }
+
+function logOut(){
+  if(isset($_SESSION['ID'])){
+    executeQuery("UPDATE user SET logged_in = 0 WHERE ID = ?",
+                 "i",
+                 array($_SESSION['ID'])
+    );
+  }
+
+  session_destroy();
+
+  header("Location: #");
+}
+
+function checkAge(){
+  $currentDate = date('m-d-Y h:i:s a', time()); 
+  if ($_SESSION['date_of_birth'] < $currentDate){
+    FALSE
+  }else{
+    TRUE
+  }
+}
+
 ?>
